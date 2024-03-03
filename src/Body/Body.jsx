@@ -1,32 +1,56 @@
 import { useState } from 'react';
+import { marked } from 'marked';
 import MainSkills from './MainSkills';
-import Loading from './Loading'; // Loading 컴포넌트를 import합니다.
+import Loading from './Loading';
 import './Body.css';
 
 export default function Body() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [readmeContent, setReadmeContent] = useState('');
+  const [showReadme, setShowReadme] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
 
   const generateReadme = () => {
     setIsLoading(true);
     setTimeout(() => {
-      const content = selectedLanguages.map(language => `- ${language}: Basic information about ${language}.\n`).join('');
-      setReadmeContent(`# Selected Programming Languages\n\n${content}`);
+      const markdown = selectedLanguages.map(language => `- ${language}: Basic information about ${language}.\n`).join('');
+      setReadmeContent(`# Selected Programming Languages\n\n${markdown}`);
       setIsLoading(false);
-    }, 3000);
+      setShowReadme(true);
+    }, 2000);
+  };
+
+  const retry = () => {
+    setShowReadme(false);
+    setReadmeContent('');
+    setPreviewMode(false);
+  };
+
+  const togglePreview = () => {
+    setPreviewMode(!previewMode);
   };
 
   return (
     <div className="body">
-      <MainSkills selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-      <button onClick={generateReadme} disabled={isLoading}>Generate README</button>
-      {isLoading && <Loading />} {/* isLoading이 true일 때 Loading 컴포넌트를 렌더링합니다. */}
-      {!isLoading && readmeContent && (
+      {isLoading ? (
+        <Loading />
+      ) : showReadme ? (
         <div>
           <h3>README Content</h3>
-          <pre>{readmeContent}</pre>
+          {previewMode ? (
+            <div dangerouslySetInnerHTML={{ __html: marked(readmeContent) }} /> // 마크다운을 HTML로 변환하여 렌더링
+          ) : (
+            <pre>{readmeContent}</pre>
+          )}
+          <button onClick={retry}>Retry</button>
+          <button onClick={togglePreview}>{previewMode ? 'Code View' : 'Preview'}</button>
         </div>
+      ) : (
+        <>
+          <MainSkills selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+          <button onClick={generateReadme}>Generate README</button>
+        </>
       )}
     </div>
   );
