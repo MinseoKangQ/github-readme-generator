@@ -20,8 +20,10 @@
     width: 100%; /* 컨테이너 너비를 100%로 설정 */
     min-height: 300px; /* 최소 높이 설정 */
     border: 1px solid #ccc; /* 경계선 추가 */
-    margin-bottom: 20px; /* 하단 마진 추가 */
-    padding: 10px; /* 패딩 추가 */
+    padding-top: 20px; /* 패딩 추가 */
+    padding-bottom: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
     box-sizing: border-box; /* 패딩과 경계선을 너비에 포함 */
     border-radius: 4px; /* 경계선 둥글게 처리 */
     background-color: #f9f9f9; /* 배경색 설정 */
@@ -38,3 +40,40 @@
     text-align: left; /* 텍스트 왼쪽 정렬 */
     overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤바 표시 */
   }
+
+/* 기존 스타일에 추가 */
+.buttonGroup {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬로 변경 */
+  margin-top: 10px; /* README 내용과의 간격 조정 */
+}
+
+/* 기존 버튼 스타일은 유지 */
+.buttonGroup button {
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* 기존 스타일에 추가 */
+.buttonGroup button.selected {
+  background-color: #e0e0e0; /* 선택된 버튼의 배경색을 다르게 설정 */
+}
+
+.retryButton {
+  display: flex;
+  justify-content: center; /* 중앙 정렬로 일관성 유지 */
+  margin-top: 20px; /* 내용과의 일관된 간격 유지 */
+}
+
+.retryButton button {
+  background-color: #f0f0f0; /* 회색 계열의 배경색 */
+  border: 1px solid #ccc; /* 경계선 설정 */
+  padding: 10px 20px; /* 패딩 설정 */
+  border-radius: 5px; /* 경계선 둥글게 */
+  cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+  font-size: 16px; /* 글자 크기 */
+}

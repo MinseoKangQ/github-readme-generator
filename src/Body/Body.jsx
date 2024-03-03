@@ -32,38 +32,44 @@ export default function Body() {
       setReadmeContent('');
       setPreviewMode(false); // Reset to edit mode
     };
-  
-    const togglePreview = () => {
-      setPreviewMode(!previewMode); // Toggle between edit and preview mode
-    };  
 
-  return (
-    <div className="body">
-      {isLoading ? (
-        <Loading />
-      ) : showReadme ? (
-        <div>
-          <h3>README Content</h3>
-          {previewMode ? (
-            // Preview mode
-            <div className="markdownPreview" dangerouslySetInnerHTML={{ __html: marked(readmeContent) }} />
-          ) : (
-            // Code mode
-            <textarea 
-              className="codePreview" 
-              value={readmeContent} 
-              onChange={handleContentChange}
-            />
-          )}
-          <button onClick={retry}>Retry</button>
-          <button onClick={togglePreview}>{previewMode ? 'Code' : 'Preview'}</button>
-        </div>
-      ) : (
-        <>
-          <MainSkills selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-          <button onClick={generateReadme}>Generate README</button>
-        </>
-      )}
-    </div>
-  );
-}
+    return (
+      <div className="body">
+        {isLoading ? (
+          <Loading />
+        ) : showReadme ? (
+          <div>
+            <h3>README Content</h3>
+            <div className="buttonGroup">
+              <button 
+                onClick={() => setPreviewMode(false)} 
+                className={!previewMode ? 'selected' : ''} // 선택된 모드에 따라 클래스 적용
+              >
+                Code
+              </button>
+              <button 
+                onClick={() => setPreviewMode(true)} 
+                className={previewMode ? 'selected' : ''} // 선택된 모드에 따라 클래스 적용
+              >
+                Preview
+              </button>
+            </div>
+            {previewMode ? (
+              <div className="markdownPreview" dangerouslySetInnerHTML={{ __html: marked(readmeContent) }} />
+            ) : (
+              <textarea className="codePreview" value={readmeContent} onChange={handleContentChange} />
+            )}
+            {/* "Retry" 버튼 위치와 스타일을 모드 변경에 영향받지 않도록 일관되게 유지 */}
+            <div className="retryButton">
+              <button onClick={retry}>Retry</button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <MainSkills selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+            <button onClick={generateReadme}>Generate README</button>
+          </>
+        )}
+      </div>
+    );
+  }
