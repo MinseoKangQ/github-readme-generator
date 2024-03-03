@@ -1,9 +1,10 @@
+import MainSkills from './MainSkills';
 import './Body.css';
 
 export default function Body() {
   return (
     <div className="body">
-      구현하자
+      <MainSkills />
     </div>
   );
 }
