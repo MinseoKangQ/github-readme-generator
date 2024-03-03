@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types'; // PropTypes import
 
-export default function MainSkills() {
+export default function MainSkills({ selectedLanguages, setSelectedLanguages }) {
   const programmingLanguages = ['Java', 'Python', 'C', 'C++', 'JavaScript', 'Ruby', 'Go', 'Swift', 'Kotlin', 'PHP'];
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event) => {
@@ -45,3 +45,9 @@ export default function MainSkills() {
     </div>
   );
 }
+
+// PropTypes 정의
+MainSkills.propTypes = {
+  selectedLanguages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedLanguages: PropTypes.func.isRequired,
+};
