@@ -1,26 +1,38 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import icons from '../icons';
+import './MainSkills.css';
 
 function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
-  // 언어 선택 토글 함수
+  const [searchTerm, setSearchTerm] = useState('');
+
   const toggleLanguageSelection = (iconId) => {
     setSelectedLanguages((prev) => {
       const isSelected = prev.includes(iconId);
-      const newSelectedLanguages = isSelected
-        ? prev.filter((id) => id !== iconId)
-        : [...prev, iconId];
-      console.log(`Before update: ${prev}`);
-      console.log(`After update: ${newSelectedLanguages}`);
-      return newSelectedLanguages;
+      return isSelected ? prev.filter((id) => id !== iconId) : [...prev, iconId];
     });
   };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  };
+
+  const filteredIcons = iconsList.filter((icon) =>
+    icon.iconId.toLowerCase().includes(searchTerm)
+  );
 
   return (
     <div>
       <h2>Main Skills</h2>
-      <div>
-        {iconsList.map((icon) => (
-          <div key={icon.iconId} style={{ margin: '5px' }}>
+      <input
+        type="text"
+        placeholder="Search skills..."
+        onChange={handleSearchChange}
+        className="search-input"
+      />
+      <div className="icons-grid">
+        {filteredIcons.map((icon) => (
+          <div key={icon.iconId} className="icon-container">
             <input
               type="checkbox"
               id={icon.iconId}
@@ -28,11 +40,10 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
                 e.stopPropagation();
                 toggleLanguageSelection(icon.iconId);
               }}
-              defaultChecked={selectedLanguages.includes(icon.iconId)}
+              checked={selectedLanguages.includes(icon.iconId)}
             />
             <label htmlFor={icon.iconId}>{icon.iconId}</label>
-            {/* 아이콘 이미지 표시 */}
-            <img src={icons[icon.iconId]} alt={icon.iconId} style={{ width: '48px', height: '48px' }} />
+            <img src={icons[icon.iconId]} alt={icon.iconId} />
           </div>
         ))}
       </div>
