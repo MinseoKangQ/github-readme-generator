@@ -18,7 +18,6 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
   return (
     <div>
       <h2>Main Skills</h2>
-      <img src="../../public/activitypub.svg"/>
       <div>
         {iconsList.map((icon) => (
           <div key={icon.iconId} style={{ margin: '5px' }}>
