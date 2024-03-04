@@ -1,48 +1,55 @@
-import { useState } from 'react';
-import ReadmeEditor from './ReadmeEditor'; // 분리한 ReadmeEditor 컴포넌트 import
+import { useState, useEffect } from 'react';
+import ReadmeEditor from './ReadmeEditor';
 import MainSkills from './MainSkills';
 import Loading from './Loading';
-import './Body.css'; // Body 컴포넌트에 대한 스타일
+import './Body.css';
+import useFetchReadme from '../API/useFetchReadme';
 
 export default function Body() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [readmeContent, setReadmeContent] = useState('');
-  const [showReadme, setShowReadme] = useState(false);
+  const { readmeContent: fetchedReadmeContent, isLoading: isReadmeLoading, error } = useFetchReadme('tandpfun/skill-icons');
+  const [generatedReadmeContent, setGeneratedReadmeContent] = useState('');
+  const [showGeneratedReadme, setShowGeneratedReadme] = useState(false);
+  
+  // API로 가져온 README 내용을 콘솔에 출력 - 성공
+  useEffect(() => {
+    if (fetchedReadmeContent) {
+      console.log(fetchedReadmeContent);
+    }
+  }, [fetchedReadmeContent]);
 
-  const handleContentChange = (event) => {
-    setReadmeContent(event.target.value); // 사용자가 textarea에서 입력한 내용을 readmeContent에 저장
-  };
-
+  // 선택된 언어들로 README를 생성
   const generateReadme = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      const markdown = selectedLanguages.map(language => `- ${language}: Basic information about ${language}.\n`).join('');
-      // setReadmeContent(`### 🪄 Main skills\n\n${markdown}`);
-      setReadmeContent(`<h3 align="center">🪄 Main skills</h3>\n\n${markdown}`)
-      setShowReadme(true); // README 내용을 보여주기 위해 true로 설정
-      setIsLoading(false);
-    }, 1500);
+    const markdown = selectedLanguages.map(language => `- ${language}: Basic information about ${language}.\n`).join('');
+    const generatedContent = `<h3 align="center">🪄 Main skills</h3>\n\n${markdown}`;
+    setGeneratedReadmeContent(generatedContent);
+    setShowGeneratedReadme(true);
   };
 
-  const retry = () => {
-    setShowReadme(false);
-    setReadmeContent('');
+  // ReadmeEditor의 내용을 업데이트
+  const handleContentChange = (newContent) => {
+    setGeneratedReadmeContent(newContent);
   };
+
+  // retry 버튼의 동작
+  const retry = () => {
+    setShowGeneratedReadme(false);
+    setGeneratedReadmeContent('');
+  };
+
+  if (isReadmeLoading) return <Loading />;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="body">
-      {isLoading ? (
-        <Loading />
-      ) : showReadme ? (
-        <div>
+      {showGeneratedReadme ? (
+        <>
           <h3>README Content</h3>
-          {/* ReadmeEditor 컴포넌트를 사용하여 코드 및 프리뷰 기능 구현 */}
-          <ReadmeEditor content={readmeContent} onContentChange={handleContentChange} />
+          <ReadmeEditor content={generatedReadmeContent} onContentChange={handleContentChange} />
           <div className="retryButton">
             <button onClick={retry}>Retry</button>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <MainSkills selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
