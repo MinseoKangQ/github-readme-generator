@@ -1,53 +1,43 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types'; // PropTypes import
+import PropTypes from 'prop-types';
 
-export default function MainSkills({ selectedLanguages, setSelectedLanguages }) {
-  const programmingLanguages = ['Java', 'Python', 'C', 'C++', 'JavaScript', 'Ruby', 'Go', 'Swift', 'Kotlin', 'PHP'];
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+function MainSkills({ iconsList, setSelectedLanguages }) {
+  // 언어 선택 토글 함수
+  const toggleLanguageSelection = (iconId) => {
+    setSelectedLanguages(prev => {
+      const isSelected = prev.includes(iconId);
+      return isSelected ? prev.filter(id => id !== iconId) : [...prev, iconId];
+    });
   };
-
-  const toggleLanguageSelection = (language) => {
-    setSelectedLanguages(prev =>
-      prev.includes(language) ? prev.filter(l => l !== language) : [...prev, language]
-    );
-  };
-
-  const filteredLanguages = programmingLanguages.filter(language =>
-    language.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div>
       <h2>Main Skills</h2>
-      <input type="text" placeholder="Search languages..." onChange={handleSearchChange} />
       <div>
-        {filteredLanguages.map(language => (
-          <div key={language}>
+        {iconsList.map(icon => (
+          <div key={icon.iconId} style={{ margin: '5px' }}>
             <input
               type="checkbox"
-              id={language}
-              checked={selectedLanguages.includes(language)}
-              onChange={() => toggleLanguageSelection(language)}
+              id={icon.iconId}
+              onChange={(e) => toggleLanguageSelection(icon.iconId, e)}
+              // aria-label={icon.iconId} // 접근성을 위한 aria-label 사용
             />
-            <label htmlFor={language}>{language}</label>
+            <span>{icon.iconId.toLowerCase()}</span>
           </div>
-        ))}
-      </div>
-      <div>
-        <h3>Selected Languages</h3>
-        {selectedLanguages.map(language => (
-          <span key={language}>{language} </span>
         ))}
       </div>
     </div>
   );
 }
 
-// PropTypes 정의
 MainSkills.propTypes = {
-  selectedLanguages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  iconsList: PropTypes.arrayOf(
+    PropTypes.shape({
+      iconId: PropTypes.string.isRequired,
+      iconSrc: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  selectedLanguages: PropTypes.array.isRequired,
   setSelectedLanguages: PropTypes.func.isRequired,
 };
+
+export default MainSkills;
