@@ -25,10 +25,10 @@ function ReadmeEditor({ content, onContentChange }) {
   );
 }
 
-// 여기에 PropTypes를 정의합니다.
+// PropTypes를 정의
 ReadmeEditor.propTypes = {
-  content: PropTypes.string.isRequired, // content는 문자열이며 필수입니다.
-  onContentChange: PropTypes.func.isRequired, // onContentChange는 함수이며 필수입니다.
+  content: PropTypes.string.isRequired,
+  onContentChange: PropTypes.func.isRequired,
 };
 
 export default ReadmeEditor;

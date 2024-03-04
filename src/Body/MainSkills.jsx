@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 
-function MainSkills({ iconsList, setSelectedLanguages }) {
+function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
+  
   // 언어 선택 토글 함수
   const toggleLanguageSelection = (iconId) => {
     setSelectedLanguages(prev => {
       const isSelected = prev.includes(iconId);
-      return isSelected ? prev.filter(id => id !== iconId) : [...prev, iconId];
+      const newSelectedLanguages = isSelected ? prev.filter(id => id !== iconId) : [...prev, iconId];
+      console.log(`Before update: ${prev}`);
+      console.log(`After update: ${newSelectedLanguages}`);
+      return newSelectedLanguages;
     });
   };
 
@@ -18,8 +22,11 @@ function MainSkills({ iconsList, setSelectedLanguages }) {
             <input
               type="checkbox"
               id={icon.iconId}
-              onChange={(e) => toggleLanguageSelection(icon.iconId, e)}
-              // aria-label={icon.iconId} // 접근성을 위한 aria-label 사용
+              onChange={(e) => {
+                e.stopPropagation();
+                toggleLanguageSelection(icon.iconId);
+              }}
+              checked={selectedLanguages.includes(icon.iconId)}
             />
             <span>{icon.iconId.toLowerCase()}</span>
           </div>
