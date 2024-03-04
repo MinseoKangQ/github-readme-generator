@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 
 function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
-  
   // 언어 선택 토글 함수
   const toggleLanguageSelection = (iconId) => {
-    setSelectedLanguages(prev => {
+    setSelectedLanguages((prev) => {
       const isSelected = prev.includes(iconId);
-      const newSelectedLanguages = isSelected ? prev.filter(id => id !== iconId) : [...prev, iconId];
+      const newSelectedLanguages = isSelected
+        ? prev.filter((id) => id !== iconId)
+        : [...prev, iconId];
       console.log(`Before update: ${prev}`);
       console.log(`After update: ${newSelectedLanguages}`);
       return newSelectedLanguages;
@@ -17,7 +18,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
     <div>
       <h2>Main Skills</h2>
       <div>
-        {iconsList.map(icon => (
+        {iconsList.map((icon) => (
           <div key={icon.iconId} style={{ margin: '5px' }}>
             <input
               type="checkbox"
@@ -26,7 +27,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
                 e.stopPropagation();
                 toggleLanguageSelection(icon.iconId);
               }}
-              checked={selectedLanguages.includes(icon.iconId)}
+              defaultChecked={selectedLanguages.includes(icon.iconId)}
             />
             <span>{icon.iconId.toLowerCase()}</span>
           </div>
