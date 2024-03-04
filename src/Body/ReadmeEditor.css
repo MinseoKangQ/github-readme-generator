@@ -1,0 +1,50 @@
+.buttonGroup {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+  
+  .buttonGroup button {
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .buttonGroup button.selected {
+    background-color: #e0e0e0;
+  }
+  
+  .codePreview, .markdownPreview {
+    width: 100%;
+    min-height: 300px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+    /* background-color: #f9f9f9; */
+  }
+  
+  .codePreview {
+    padding: 20px;
+  }
+
+  .markdownPreview {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+  
+  .codePreview {
+    font-family: monospace;
+    resize: vertical;
+  }
+  
+  .markdownPreview {
+    text-align: left;
+    overflow-y: auto;
+  }
+  
