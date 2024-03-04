@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import icons from '../icons';
 
 function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
   // 언어 선택 토글 함수
@@ -17,6 +18,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
   return (
     <div>
       <h2>Main Skills</h2>
+      <img src="../../public/activitypub.svg"/>
       <div>
         {iconsList.map((icon) => (
           <div key={icon.iconId} style={{ margin: '5px' }}>
@@ -29,7 +31,9 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
               }}
               defaultChecked={selectedLanguages.includes(icon.iconId)}
             />
-            <span>{icon.iconId.toLowerCase()}</span>
+            <label htmlFor={icon.iconId}>{icon.iconId}</label>
+            {/* 아이콘 이미지 표시 */}
+            <img src={icons[icon.iconId]} alt={icon.iconId} style={{ width: '48px', height: '48px' }} />
           </div>
         ))}
       </div>
