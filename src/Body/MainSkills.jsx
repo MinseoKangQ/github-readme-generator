@@ -9,7 +9,10 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
   const toggleLanguageSelection = (iconId) => {
     setSelectedLanguages((prev) => {
       const isSelected = prev.includes(iconId);
-      return isSelected ? prev.filter((id) => id !== iconId) : [...prev, iconId];
+      const newSelectedLanguages = isSelected
+      ? prev.filter((id) => id !== iconId)
+      : [...prev, iconId];
+      return newSelectedLanguages;
     });
   };
 
@@ -40,7 +43,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
                 e.stopPropagation();
                 toggleLanguageSelection(icon.iconId);
               }}
-              checked={selectedLanguages.includes(icon.iconId)}
+              defaultChecked={selectedLanguages.includes(icon.iconId)}
             />
             <label htmlFor={icon.iconId}>{icon.iconId}</label>
             <img src={icons[icon.iconId]} alt={icon.iconId} />
