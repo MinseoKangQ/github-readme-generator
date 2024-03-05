@@ -54,7 +54,11 @@ const generateReadme = () => {
     <div className="body">
       {!showGeneratedReadme && (
         <>
-          <MainSkills iconsList={iconsList} selectedLanguages={selectedLanguages.map(lang => lang.iconId)} setSelectedLanguages={setSelectedLanguages} />
+          <MainSkills
+            iconsList={iconsList}
+            selectedLanguages={selectedLanguages}
+            setSelectedLanguages={setSelectedLanguages}
+          />
           <button onClick={generateReadme}>Generate README</button>
         </>
       )}

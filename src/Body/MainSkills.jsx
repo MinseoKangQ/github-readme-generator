@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import icons from '../icons';
 import './MainSkills.css';
@@ -6,12 +7,18 @@ import './MainSkills.css';
 function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
   const [searchTerm, setSearchTerm] = useState('');
 
+  // useEffect(() => {
+  //   // 현재까지 선택된 모든 언어들을 콘솔에 출력
+  //   console.log("Currently selected languages:", selectedLanguages);
+  // }, [selectedLanguages]);
+
   const toggleLanguageSelection = (iconId) => {
+    // console.log(iconId); // 클릭된 아이콘의 ID를 출력
     setSelectedLanguages((prev) => {
       const isSelected = prev.includes(iconId);
       const newSelectedLanguages = isSelected
-      ? prev.filter((id) => id !== iconId)
-      : [...prev, iconId];
+        ? prev.filter((id) => id !== iconId)
+        : [...prev, iconId];
       return newSelectedLanguages;
     });
   };
@@ -39,8 +46,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
             <input
               type="checkbox"
               id={icon.iconId}
-              onChange={(e) => {
-                e.stopPropagation();
+              onClick={() => {
                 toggleLanguageSelection(icon.iconId);
               }}
               defaultChecked={selectedLanguages.includes(icon.iconId)}
