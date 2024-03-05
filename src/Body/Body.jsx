@@ -62,7 +62,9 @@ export default function Body() {
             selectedLanguages={selectedLanguages}
             setSelectedLanguages={setSelectedLanguages}
           />
-          <button onClick={generateReadme}>Generate README</button>
+          <div className="generateButton">
+            <button onClick={generateReadme}>Generate README</button>
+          </div>
         </>
       )}
       {showGeneratedReadme && (

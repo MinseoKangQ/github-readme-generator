@@ -16,13 +16,13 @@
     width: 80%; /* pre 태그 너비를 부모의 80%로 설정 */
   }
   
-.retryButton {
+.retryButton, .generateButton {
   display: flex;
   justify-content: center; /* 중앙 정렬로 일관성 유지 */
   margin-top: 20px; /* 내용과의 일관된 간격 유지 */
 }
 
-.retryButton button {
+.retryButton button, .generateButton button {
   background-color: #f0f0f0; /* 회색 계열의 배경색 */
   border: 1px solid #ccc; /* 경계선 설정 */
   padding: 10px 20px; /* 패딩 설정 */
