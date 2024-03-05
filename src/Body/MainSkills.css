@@ -1,15 +1,23 @@
 .search-input {
     width: 100%;
     padding: 8px;
-    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
+  .skills-container {
+    max-height: 300px; /* 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤바 설정 */
+    border: 1px solid #ddd; /* 테두리 색상 */
+    border-radius: 8px; /* 테두리 둥글기 */
+    padding: 10px; /* 안쪽 여백 */
+    margin-top: 20px; /* 상단 여백 */
+  }
+
   .icons-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 자동으로 아이템을 정렬 */
+    gap: 20px; /* 그리드 사이의 간격 */
   }
   
   .icon-container {

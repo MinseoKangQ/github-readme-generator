@@ -40,6 +40,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
         onChange={handleSearchChange}
         className="search-input"
       />
+      <div className="skills-container"> {/* 스킬들을 포함하는 네모 박스 추가 */}
       <div className="icons-grid">
         {filteredIcons.map((icon) => (
           <div key={icon.iconId} className="icon-container">
@@ -57,7 +58,8 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
         ))}
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 MainSkills.propTypes = {
