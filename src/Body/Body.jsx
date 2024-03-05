@@ -28,13 +28,16 @@ export default function Body() {
   }, []);
 
   // 선택된 언어들로 README를 생성하는 함수
-const generateReadme = () => {
-  const markdown = selectedLanguages.map(iconId => `- ${iconId}: ![${iconId}](${createIconUrl(iconId)})`).join('\n');
-  const generatedContent = `## Main Skills\n\n${markdown}`;
-  setGeneratedReadmeContent(generatedContent);
-  setShowGeneratedReadme(true); // README가 생성되면 표시 상태를 true로 설정
-};
-
+  const generateReadme = () => {
+    setIsLoading(true); // 로딩 시작
+    setTimeout(() => { // 1초 기다리기
+      const markdown = selectedLanguages.map(iconId => `- ${iconId}: ![${iconId}](${createIconUrl(iconId)})`).join('\n');
+      const generatedContent = `## Main Skills\n\n${markdown}`;
+      setGeneratedReadmeContent(generatedContent);
+      setShowGeneratedReadme(true);
+      setIsLoading(false); // 1초 후에 끝
+    }, 1000);
+  };
 
   // ReadmeEditor의 내용을 업데이트하는 함수
   const handleContentChange = (newContent) => {
