@@ -36,21 +36,17 @@ export default function Body() {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("showGeneratedReadme changed in Body component. Current state: ", showGeneratedReadme);
-  }, [showGeneratedReadme]);
-
   // 아이콘 테마 변경을 처리하는 함수
   const updateTheme = (newTheme) => {
     setIconTheme(newTheme);
     if (showGeneratedReadme) {
-      generateReadme();
+      generateReadme(newTheme);
     }
   };
 
   // 선택된 언어들로 README를 생성하는 함수
-  const generateReadme = () => {
-    const themeQuery = `&theme=${iconTheme}`;
+  const generateReadme = (theme = iconTheme) => {
+    const themeQuery = `&theme=${theme}`;
     setIsLoading(true);
     setTimeout(() => {
       const mainSkillsMarkdown = selectedLanguages.length

@@ -6,13 +6,8 @@ import './ReadmeEditor.css';
 function ReadmeEditor({ content, onContentChange, iconTheme, updateTheme }) {
   const [previewMode, setPreviewMode] = useState(false);
 
-  const handleLightThemeClick = () => {
-    updateTheme('light');
-  };
-
-  const handleDarkThemeClick = () => {
-    updateTheme('dark');
-  };
+  const handleLightThemeClick = () => { updateTheme('light'); };
+  const handleDarkThemeClick = () => { updateTheme('dark'); };
 
   return (
     <div>
