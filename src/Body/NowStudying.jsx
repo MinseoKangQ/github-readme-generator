@@ -20,7 +20,7 @@ function NowStudying({ iconsList, selectedStudyingLanguages, setSelectedStudying
 
   return (
     <div>
-      <h2>📚 Now Studying</h2>
+      <h2 className="h2-title">📚 Now Studying</h2>
       <input
         type="text"
         placeholder="Search skills..."

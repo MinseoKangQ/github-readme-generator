@@ -20,7 +20,7 @@ function AvailableSkills({ iconsList, selectedAvailableLanguages, setSelectedAva
 
   return (
     <div>
-      <h2>💡 Available Skills</h2>
+      <h2 className="h2-title">💡 Available Skills</h2>
       <input
         type="text"
         placeholder="Search skills..."

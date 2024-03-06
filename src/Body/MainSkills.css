@@ -1,3 +1,7 @@
+.h2-title {
+  margin-top: 50px; /* 원하는 여백 크기로 조절 */
+}
+
 .search-input {
     width: 20%;
     padding: 8px;
