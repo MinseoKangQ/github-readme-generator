@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import icons from '../icons';
 
-function NowStudying({ iconsList, selectedStudyingLanguages, setSelectedStudyingLanguages }) {
+function NowStudying({ title, setTitle, iconsList, selectedStudyingLanguages, setSelectedStudyingLanguages }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const toggleLanguageSelection = (iconId) => {
@@ -20,7 +20,13 @@ function NowStudying({ iconsList, selectedStudyingLanguages, setSelectedStudying
 
   return (
     <div>
-      <h2 className="h2-title">📚 Now Studying</h2>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="title-input"
+          aria-label="Section title"
+        />
       <input
         type="text"
         placeholder="Search skills..."
@@ -48,6 +54,8 @@ function NowStudying({ iconsList, selectedStudyingLanguages, setSelectedStudying
 }
 
 NowStudying.propTypes = {
+  title: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
   iconsList: PropTypes.array.isRequired,
   selectedStudyingLanguages: PropTypes.array.isRequired,
   setSelectedStudyingLanguages: PropTypes.func.isRequired,

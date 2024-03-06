@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import icons from '../icons';
 import './MainSkills.css';
 
-function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
+function MainSkills({ title, setTitle, iconsList, selectedLanguages, setSelectedLanguages }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   // useEffect(() => {
@@ -33,7 +33,13 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
 
   return (
     <div>
-      <h2 className="h2-title">🪄 Main Skills</h2>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="title-input"
+        aria-label="Section title"
+      />
       <input
         type="text"
         placeholder="Search skills..."
@@ -63,6 +69,8 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
 }
 
 MainSkills.propTypes = {
+  title: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
   iconsList: PropTypes.arrayOf(
     PropTypes.shape({
       iconId: PropTypes.string.isRequired,

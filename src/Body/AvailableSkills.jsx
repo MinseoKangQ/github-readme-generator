@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import icons from '../icons';
 
-function AvailableSkills({ iconsList, selectedAvailableLanguages, setSelectedAvailableLanguages }) {
+function AvailableSkills({ title, setTitle, iconsList, selectedAvailableLanguages, setSelectedAvailableLanguages }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const toggleLanguageSelection = (iconId) => {
@@ -20,7 +20,13 @@ function AvailableSkills({ iconsList, selectedAvailableLanguages, setSelectedAva
 
   return (
     <div>
-      <h2 className="h2-title">💡 Available Skills</h2>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="title-input"
+          aria-label="Section title"
+        />
       <input
         type="text"
         placeholder="Search skills..."
@@ -48,6 +54,8 @@ function AvailableSkills({ iconsList, selectedAvailableLanguages, setSelectedAva
 }
 
 AvailableSkills.propTypes = {
+  title: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
   iconsList: PropTypes.array.isRequired,
   selectedAvailableLanguages: PropTypes.array.isRequired,
   setSelectedAvailableLanguages: PropTypes.func.isRequired,

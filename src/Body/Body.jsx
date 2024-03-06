@@ -17,6 +17,11 @@ export default function Body() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // 타이틀
+  const [mainSkillsTitle, setMainSkillsTitle] = useState('🪄 Main Skills');
+  const [availableSkillsTitle, setAvailableSkillsTitle] = useState('💡 Available Skills');
+  const [nowStudyingTitle, setNowStudyingTitle] = useState('📚 Now Studying');
+
   useEffect(() => {
     setIsLoading(true);
     fetchReadmeAndParseIcons('tandpfun/skill-icons')
@@ -35,22 +40,31 @@ export default function Body() {
   const generateReadme = () => {
     setIsLoading(true);
     setTimeout(() => {
+      // 각 섹션의 마크다운 문자열 생성
       const mainSkillsMarkdown = selectedLanguages.length
-        ? `[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")})](https://skillicons.dev)`
+        ? `### ${mainSkillsTitle}\n\n[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")})](https://skillicons.dev)`
         : '';
       const availableSkillsMarkdown = selectedAvailableLanguages.length
-        ? `[![Available Skills](https://skillicons.dev/icons?i=${selectedAvailableLanguages.join(",")})](https://skillicons.dev)`
+        ? `### ${availableSkillsTitle}\n\n[![Available Skills](https://skillicons.dev/icons?i=${selectedAvailableLanguages.join(",")})](https://skillicons.dev)`
         : '';
       const nowStudyingMarkdown = selectedStudyingLanguages.length
-        ? `[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")})](https://skillicons.dev)`
+        ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")})](https://skillicons.dev)`
         : '';
   
-      const generatedContent = `### 🪄 Main Skills\n\n${mainSkillsMarkdown}\n\n<br><br>\n\n### 💡 Available Skills\n\n${availableSkillsMarkdown}\n\n<br><br>\n\n### 📚 Now Studying\n\n${nowStudyingMarkdown}`;
+      // 섹션별로 내용이 있으면 앞에 <br><br>을 추가하는 로직
+      const markdownSections = [
+        mainSkillsMarkdown,
+        availableSkillsMarkdown,
+        nowStudyingMarkdown
+      ].filter(Boolean); // 빈 문자열 제거
+  
+      const generatedContent = markdownSections.join("\n\n<br><br>\n\n");
+      
       setGeneratedReadmeContent(generatedContent);
       setShowGeneratedReadme(true);
       setIsLoading(false);
     }, 1000);
-  };
+  };  
   
 
   // ReadmeEditor의 내용을 업데이트하는 함수
@@ -72,16 +86,22 @@ export default function Body() {
       {!showGeneratedReadme && (
         <>
           <MainSkills
+            title={mainSkillsTitle}
+            setTitle={setMainSkillsTitle}
             iconsList={iconsList}
             selectedLanguages={selectedLanguages}
             setSelectedLanguages={setSelectedLanguages}
           />
           <AvailableSkills
+            title={availableSkillsTitle}
+            setTitle={setAvailableSkillsTitle}
             iconsList={iconsList}
             selectedAvailableLanguages={selectedAvailableLanguages}
             setSelectedAvailableLanguages={setSelectedAvailableLanguages}
           />
           <NowStudying
+            title={nowStudyingTitle}
+            setTitle={setNowStudyingTitle}
             iconsList={iconsList}
             selectedStudyingLanguages={selectedStudyingLanguages}
             setSelectedStudyingLanguages={setSelectedStudyingLanguages}
