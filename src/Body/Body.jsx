@@ -31,7 +31,8 @@ export default function Body() {
   const generateReadme = () => {
     setIsLoading(true); // 로딩 시작
     setTimeout(() => { // 1초 기다리기
-      const markdown = selectedLanguages.map(iconId => `- ${iconId}: ![${iconId}](${createIconUrl(iconId)})`).join('\n');
+      const iconIdsJoined = selectedLanguages.join(",");
+      const markdown = `[![My Skills](https://skillicons.dev/icons?i=${iconIdsJoined})](https://skillicons.dev)`;
       const generatedContent = `## Main Skills\n\n${markdown}`;
       setGeneratedReadmeContent(generatedContent);
       setShowGeneratedReadme(true);
@@ -79,6 +80,3 @@ export default function Body() {
     </div>
   );
 }
-
-// iconsList에서 선택된 아이콘의 URL을 생성하는 함수
-const createIconUrl = (iconId) => `https://skillicons.dev/icons?i=${iconId}`;
