@@ -36,12 +36,23 @@ export default function Body() {
       });
   }, []);
 
+  useEffect(() => {
+    console.log("showGeneratedReadme changed in Body component. Current state: ", showGeneratedReadme);
+  }, [showGeneratedReadme]);
+
+  // 아이콘 테마 변경을 처리하는 함수
+  const updateTheme = (newTheme) => {
+    setIconTheme(newTheme);
+    if (showGeneratedReadme) {
+      generateReadme();
+    }
+  };
+
   // 선택된 언어들로 README를 생성하는 함수
   const generateReadme = () => {
+    const themeQuery = `&theme=${iconTheme}`;
     setIsLoading(true);
     setTimeout(() => {
-      const themeQuery = `&theme=${iconTheme}`;
-  
       const mainSkillsMarkdown = selectedLanguages.length
         ? `### ${mainSkillsTitle}\n\n[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
@@ -110,7 +121,7 @@ export default function Body() {
             content={generatedReadmeContent} 
             onContentChange={handleContentChange}
             iconTheme={iconTheme}
-            setIconTheme={setIconTheme}  
+            updateTheme={updateTheme}
           />
           <div className="retryButton">
             <button onClick={retry}>Retry</button>
