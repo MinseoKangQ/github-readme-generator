@@ -11,13 +11,13 @@ export default function Body() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [selectedAvailableLanguages, setSelectedAvailableLanguages] = useState([]);
   const [selectedStudyingLanguages, setSelectedStudyingLanguages] = useState([]);
-  const [iconsList, setIconsList] = useState([]); // 파싱된 아이콘 리스트
+  const [iconsList, setIconsList] = useState([]);
+  const [iconTheme, setIconTheme] = useState('dark');
   const [generatedReadmeContent, setGeneratedReadmeContent] = useState('');
-  const [showGeneratedReadme, setShowGeneratedReadme] = useState(false); // 추가된 상태
+  const [showGeneratedReadme, setShowGeneratedReadme] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // 타이틀
   const [mainSkillsTitle, setMainSkillsTitle] = useState('🪄 Main Skills');
   const [availableSkillsTitle, setAvailableSkillsTitle] = useState('💡 Available Skills');
   const [nowStudyingTitle, setNowStudyingTitle] = useState('📚 Now Studying');
@@ -40,39 +40,31 @@ export default function Body() {
   const generateReadme = () => {
     setIsLoading(true);
     setTimeout(() => {
-      // 각 섹션의 마크다운 문자열 생성
+      const themeQuery = `&theme=${iconTheme}`;
+  
       const mainSkillsMarkdown = selectedLanguages.length
-        ? `### ${mainSkillsTitle}\n\n[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")})](https://skillicons.dev)`
+        ? `### ${mainSkillsTitle}\n\n[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
       const availableSkillsMarkdown = selectedAvailableLanguages.length
-        ? `### ${availableSkillsTitle}\n\n[![Available Skills](https://skillicons.dev/icons?i=${selectedAvailableLanguages.join(",")})](https://skillicons.dev)`
+        ? `### ${availableSkillsTitle}\n\n[![Available Skills](https://skillicons.dev/icons?i=${selectedAvailableLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
       const nowStudyingMarkdown = selectedStudyingLanguages.length
-        ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")})](https://skillicons.dev)`
+        ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
-  
-      // 섹션별로 내용이 있으면 앞에 <br><br>을 추가하는 로직
-      const markdownSections = [
-        mainSkillsMarkdown,
-        availableSkillsMarkdown,
-        nowStudyingMarkdown
-      ].filter(Boolean); // 빈 문자열 제거
-  
+
+      const markdownSections = [mainSkillsMarkdown, availableSkillsMarkdown, nowStudyingMarkdown].filter(Boolean);
       const generatedContent = markdownSections.join("\n\n<br><br>\n\n");
       
       setGeneratedReadmeContent(generatedContent);
       setShowGeneratedReadme(true);
       setIsLoading(false);
     }, 1000);
-  };  
-  
+  };
 
-  // ReadmeEditor의 내용을 업데이트하는 함수
   const handleContentChange = (newContent) => {
     setGeneratedReadmeContent(newContent);
   };
 
-  // Retry 버튼의 동작 구현
   const retry = () => {
     setShowGeneratedReadme(false);
     setGeneratedReadmeContent('');
@@ -114,7 +106,12 @@ export default function Body() {
       {showGeneratedReadme && (
         <>
           <h3>README Content</h3>
-          <ReadmeEditor content={generatedReadmeContent} onContentChange={handleContentChange} />
+          <ReadmeEditor 
+            content={generatedReadmeContent} 
+            onContentChange={handleContentChange}
+            iconTheme={iconTheme}
+            setIconTheme={setIconTheme}  
+          />
           <div className="retryButton">
             <button onClick={retry}>Retry</button>
           </div>
