@@ -33,7 +33,7 @@ function MainSkills({ iconsList, selectedLanguages, setSelectedLanguages }) {
 
   return (
     <div>
-      <h2>Main Skills</h2>
+      <h2>🪄 Main Skills</h2>
       <input
         type="text"
         placeholder="Search skills..."
