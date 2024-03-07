@@ -38,18 +38,22 @@ export default function Body() {
       });
   }, []);
 
-  // 아이콘 테마 변경을 처리하는 함수
   const updateTheme = (newTheme) => {
+    console.log("Updating theme to:", newTheme); // Debug: Log the newTheme value
+    if (typeof newTheme !== 'string') {
+      console.error("newTheme is not a string:", newTheme);
+      return; // Exit if newTheme is not a string to avoid further issues
+    }
     setIconTheme(newTheme);
     if (showGeneratedReadme) {
-      generateReadme(newTheme);
+      generateReadme(newTheme, false);
     }
   };
 
   // 선택된 언어들로 README를 생성하는 함수
-  const generateReadme = (theme = iconTheme) => {
+  const generateReadme = (theme = iconTheme, shouldSetLoading = true) => {
     const themeQuery = `&theme=${theme}`;
-    setIsLoading(true);
+    if (shouldSetLoading) setIsLoading(true);
     setTimeout(() => {
       const usernameMarkdown = githubUsername
         ? `### Hi there, I'm ${githubUsername} 👋\n\n`
@@ -112,7 +116,7 @@ export default function Body() {
             setSelectedStudyingLanguages={setSelectedStudyingLanguages}
           />
           <div className="generateButton">
-            <button onClick={generateReadme}>Generate README</button>
+          <button onClick={() => generateReadme(iconTheme)}>Generate README</button>
           </div>
         </>
       )}
