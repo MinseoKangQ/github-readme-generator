@@ -1,50 +1,101 @@
-.buttonGroup {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-  }
-  
-  .buttonGroup button {
-    border: 1px solid #ccc;
-    padding: 10px 20px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .buttonGroup button.selected {
-    background-color: #e0e0e0;
-  }
-  
-  .codePreview, .markdownPreview {
-    width: 100%;
-    min-height: 300px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 4px;
-    /* background-color: #f9f9f9; */
-  }
-  
-  .codePreview {
-    padding: 20px;
-  }
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 
-  .markdownPreview {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-right: 30px;
-    padding-left: 30px;
-  }
-  
-  .codePreview {
-    font-family: monospace;
-    resize: vertical;
-  }
-  
-  .markdownPreview {
-    text-align: left;
-    overflow-y: auto;
-  }
-  
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Code, Preview 버튼 */
+.buttonGroup1 {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.buttonGroup1 button {
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.buttonGroup1 button.selected {
+  background-color: #e0e0e0;
+}
+
+/* Toggle Button Styles */
+.toggleGroup {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* 토글 버튼 전체적인 스타일 */
+.toggleBackground {
+  width: 70px; 
+  height: 28px;
+  border-radius: 9999px; 
+  padding: 4px; 
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease; /* 애니메이션 */
+}
+
+/* 토글 버튼 - Dark 모드 */
+.bg-dark {
+  background-color: #231F20;
+  justify-content: flex-end;
+}
+
+/* 토글 버튼 - Light 모드 */
+.bg-light {
+  background-color: #D2D3D5;
+  justify-content: flex-start;
+}
+
+/* 토글 버튼 내 원 */
+.toggleButton {
+  width: 25px;
+  height: 25px;
+  border-radius: 9999px; /* 원 모양 */
+  transition: transform 0.3s ease; /* 애니메이션 */
+}
+
+/* 토글버튼 내 원 - Dark 모드 */
+.toggle-dark {
+  background-color: white;
+}
+
+/* 토글버튼 내 원 - Light 모드 */
+.toggle-light {
+  background-color: white;
+}
+
+/* Code/Markdown */
+.codePreview, .markdownPreview {
+  width: 100%;
+  min-height: 300px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.codePreview {
+  padding: 20px;
+  font-family: monospace;
+  resize: vertical;
+}
+
+.markdownPreview {
+  padding: 10px 30px;
+  text-align: left;
+  overflow-y: auto;
+}
