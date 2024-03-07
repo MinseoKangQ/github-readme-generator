@@ -1,0 +1,11 @@
+.github-username-container {
+    margin: 50px 0px 20px 0px;
+    text-align: left;
+}
+
+.username-input {
+    width: 20%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

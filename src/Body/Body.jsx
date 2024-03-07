@@ -4,6 +4,7 @@ import MainSkills from './MainSkills';
 import AvailableSkills from './AvailableSkills';
 import NowStudying from './NowStudying';
 import Loading from './Loading';
+import GithubUserName from './GithubUserName';
 import './Body.css';
 import { fetchReadmeAndParseIcons } from '../API/apiService';
 
@@ -11,6 +12,7 @@ export default function Body() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [selectedAvailableLanguages, setSelectedAvailableLanguages] = useState([]);
   const [selectedStudyingLanguages, setSelectedStudyingLanguages] = useState([]);
+  const [githubUsername, setGithubUsername] = useState('');
   const [iconsList, setIconsList] = useState([]);
   const [iconTheme, setIconTheme] = useState('dark');
   const [generatedReadmeContent, setGeneratedReadmeContent] = useState('');
@@ -49,6 +51,9 @@ export default function Body() {
     const themeQuery = `&theme=${theme}`;
     setIsLoading(true);
     setTimeout(() => {
+      const usernameMarkdown = githubUsername
+        ? `### Hi there, I'm ${githubUsername} 👋\n\n`
+        : '';
       const mainSkillsMarkdown = selectedLanguages.length
         ? `### ${mainSkillsTitle}\n\n[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
@@ -59,8 +64,8 @@ export default function Body() {
         ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
 
-      const markdownSections = [mainSkillsMarkdown, availableSkillsMarkdown, nowStudyingMarkdown].filter(Boolean);
-      const generatedContent = markdownSections.join("\n\n<br><br>\n\n");
+        const markdownSections = [usernameMarkdown, mainSkillsMarkdown, availableSkillsMarkdown, nowStudyingMarkdown].filter(Boolean);
+        const generatedContent = markdownSections.join("\n\n<br><br>\n\n");
       
       setGeneratedReadmeContent(generatedContent);
       setShowGeneratedReadme(true);
@@ -84,6 +89,7 @@ export default function Body() {
     <div className="body">
       {!showGeneratedReadme && (
         <>
+          <GithubUserName setUsername={setGithubUsername} />
           <MainSkills
             title={mainSkillsTitle}
             setTitle={setMainSkillsTitle}
