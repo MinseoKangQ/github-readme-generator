@@ -5,6 +5,7 @@ import AvailableSkills from './AvailableSkills';
 import NowStudying from './NowStudying';
 import Loading from './Loading';
 import GithubUserName from './GithubUserName';
+import Projects from './Projects';
 import './Body.css';
 import { fetchReadmeAndParseIcons } from '../API/apiService';
 
@@ -39,10 +40,9 @@ export default function Body() {
   }, []);
 
   const updateTheme = (newTheme) => {
-    console.log("Updating theme to:", newTheme); // Debug: Log the newTheme value
     if (typeof newTheme !== 'string') {
       console.error("newTheme is not a string:", newTheme);
-      return; // Exit if newTheme is not a string to avoid further issues
+      return;
     }
     setIconTheme(newTheme);
     if (showGeneratedReadme) {
@@ -115,8 +115,9 @@ export default function Body() {
             selectedStudyingLanguages={selectedStudyingLanguages}
             setSelectedStudyingLanguages={setSelectedStudyingLanguages}
           />
+          <Projects/>
           <div className="generateButton">
-          <button onClick={() => generateReadme(iconTheme)}>Generate README</button>
+            <button className="generate-readme-btn" onClick={() => generateReadme(iconTheme)}>Generate README</button>
           </div>
         </>
       )}

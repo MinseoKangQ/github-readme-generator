@@ -22,11 +22,15 @@
   margin-top: 20px; /* 내용과의 일관된 간격 유지 */
 }
 
-.retryButton button, .generateButton button {
+.retryButton button, .generate-readme-btn {
   background-color: #f0f0f0; /* 회색 계열의 배경색 */
   border: 1px solid #ccc; /* 경계선 설정 */
   padding: 10px 20px; /* 패딩 설정 */
   border-radius: 5px; /* 경계선 둥글게 */
   cursor: pointer; /* 마우스 오버 시 포인터 변경 */
   font-size: 16px; /* 글자 크기 */
+}
+
+.generate-readme-btn {
+  margin-top: 30px;
 }
