@@ -1,11 +1,9 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import './Projects.css';
 
-const Projects = () => {
-  const [projects, setProjects] = useState([{}]);
-  const [columns, setColumns] = useState(['Project Name', 'Repository', 'Role']);
+const Projects = ({ projects, setProjects, columns, setColumns, projectsTitle, setProjectsTitle }) => {
   const [newColumn, setNewColumn] = useState('');
-  const [title, setTitle] = useState('📁 Projects');
 
   const handleAddColumn = () => {
     if (newColumn && !columns.includes(newColumn)) {
@@ -25,15 +23,20 @@ const Projects = () => {
   };
 
   const addNewProject = () => {
-    setProjects([...projects, {}]);
+    const newProject = columns.reduce((acc, column) => {
+      acc[column] = '';
+      return acc;
+    }, {});
+
+    setProjects([...projects, newProject]);
   };
 
   return (
     <div className="projects-container">
       <input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={projectsTitle}
+        onChange={(e) => setProjectsTitle(e.target.value)}
         className="title-input"
         placeholder="Project Section Title"
       />
@@ -67,11 +70,10 @@ const Projects = () => {
                   />
                 </td>
               ))}
-              <td></td>
             </tr>
           ))}
           <tr className="add-project-row">
-            <td colSpan={columns.length + 1} style={{textAlign: 'center'}}>
+            <td colSpan={columns.length} style={{textAlign: 'center'}}>
               <button className="add-project-btn" onClick={addNewProject}>Add Project</button>
             </td>
           </tr>
@@ -79,6 +81,15 @@ const Projects = () => {
       </table>
     </div>
   );
+};
+
+Projects.propTypes = {
+    projects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    setProjects: PropTypes.func.isRequired,
+    columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setColumns: PropTypes.func.isRequired,
+    projectsTitle: PropTypes.string.isRequired,
+    setProjectsTitle: PropTypes.func.isRequired,
 };
 
 export default Projects;

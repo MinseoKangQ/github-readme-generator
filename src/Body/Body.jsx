@@ -16,6 +16,8 @@ export default function Body() {
   const [githubUsername, setGithubUsername] = useState('');
   const [iconsList, setIconsList] = useState([]);
   const [iconTheme, setIconTheme] = useState('dark');
+  const [projects, setProjects] = useState([]);
+  const [columns, setColumns] = useState(['Project Name', 'Repository', 'Role']);
   const [generatedReadmeContent, setGeneratedReadmeContent] = useState('');
   const [showGeneratedReadme, setShowGeneratedReadme] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +26,7 @@ export default function Body() {
   const [mainSkillsTitle, setMainSkillsTitle] = useState('🪄 Main Skills');
   const [availableSkillsTitle, setAvailableSkillsTitle] = useState('💡 Available Skills');
   const [nowStudyingTitle, setNowStudyingTitle] = useState('📚 Now Studying');
+  const [projectsTitle, setProjectsTitle] = useState('📁 Projects');
 
   useEffect(() => {
     setIsLoading(true);
@@ -68,12 +71,34 @@ export default function Body() {
         ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
 
-        const markdownSections = [usernameMarkdown, mainSkillsMarkdown, availableSkillsMarkdown, nowStudyingMarkdown].filter(Boolean);
-        const generatedContent = markdownSections.join("\n\n<br><br>\n\n");
-      
-      setGeneratedReadmeContent(generatedContent);
-      setShowGeneratedReadme(true);
-      setIsLoading(false);
+        const projectsTitleMarkdown = projects.length > 0 ? `### ${projectsTitle}\n\n` : '';
+
+        const headerRow = `<tr>${columns.map(column => `<th>${column}</th>`).join('')}</tr>`;
+        const bodyRows = projects.map(project =>
+            `<tr>${columns.map(column => {
+                const cellValue = project[column];
+                if (column === 'Repository' && cellValue) {
+                    return `<td><a href="${cellValue}">${cellValue}</a></td>`;
+                }
+                return `<td>${cellValue || ''}</td>`;
+            }).join('')}</tr>`
+        ).join('');
+    
+        const projectsTableMarkdown = projects.length > 0
+            ? `<table>${headerRow}${bodyRows}</table>`
+            : '';
+    
+        const markdownSections = [
+            usernameMarkdown, 
+            mainSkillsMarkdown, 
+            availableSkillsMarkdown, 
+            nowStudyingMarkdown, 
+            projectsTitleMarkdown + projectsTableMarkdown
+        ].filter(Boolean).join("\n\n<br><br>\n\n");
+        
+        setGeneratedReadmeContent(markdownSections);
+        setShowGeneratedReadme(true);
+        setIsLoading(false);
     }, 1000);
   };
 
@@ -115,7 +140,14 @@ export default function Body() {
             selectedStudyingLanguages={selectedStudyingLanguages}
             setSelectedStudyingLanguages={setSelectedStudyingLanguages}
           />
-          <Projects/>
+          <Projects
+            projects={projects}
+            setProjects={setProjects}
+            columns={columns}
+            setColumns={setColumns}
+            projectsTitle={projectsTitle}
+            setProjectsTitle={setProjectsTitle}
+          />
           <div className="generateButton">
             <button className="generate-readme-btn" onClick={() => generateReadme(iconTheme)}>Generate README</button>
           </div>
