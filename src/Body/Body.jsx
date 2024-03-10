@@ -58,47 +58,63 @@ export default function Body() {
     const themeQuery = `&theme=${theme}`;
     if (shouldSetLoading) setIsLoading(true);
     setTimeout(() => {
+
+      // 깃허브 계정 이름
       const usernameMarkdown = githubUsername
         ? `### Hi there, I'm ${githubUsername} 👋\n\n`
         : '';
+
+      // 메인 스킬들
       const mainSkillsMarkdown = selectedLanguages.length
         ? `### ${mainSkillsTitle}\n\n[![My Skills](https://skillicons.dev/icons?i=${selectedLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
+
+      // 가능한 언어들
       const availableSkillsMarkdown = selectedAvailableLanguages.length
         ? `### ${availableSkillsTitle}\n\n[![Available Skills](https://skillicons.dev/icons?i=${selectedAvailableLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
+
+      // 현재 공부중인 언어들
       const nowStudyingMarkdown = selectedStudyingLanguages.length
         ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
 
-        const projectsTitleMarkdown = projects.length > 0 ? `### ${projectsTitle}\n\n` : '';
+      // 프로젝트들 타이틀명
+      const projectsTitleMarkdown = projects.length > 0 ? `### ${projectsTitle}\n\n` : '';
 
-        const headerRow = `<tr>${columns.map(column => `<th>${column}</th>`).join('')}</tr>`;
-        const bodyRows = projects.map(project =>
-            `<tr>${columns.map(column => {
-                const cellValue = project[column];
-                if (column === 'Repository' && cellValue) {
-                    return `<td><a href="${cellValue}">${cellValue}</a></td>`;
-                }
-                return `<td>${cellValue || ''}</td>`;
-            }).join('')}</tr>`
-        ).join('');
-    
-        const projectsTableMarkdown = projects.length > 0
-            ? `<table>${headerRow}${bodyRows}</table>`
-            : '';
-    
-        const markdownSections = [
-            usernameMarkdown, 
-            mainSkillsMarkdown, 
-            availableSkillsMarkdown, 
-            nowStudyingMarkdown, 
-            projectsTitleMarkdown + projectsTableMarkdown
-        ].filter(Boolean).join("\n\n<br><br>\n\n");
-        
-        setGeneratedReadmeContent(markdownSections);
-        setShowGeneratedReadme(true);
-        setIsLoading(false);
+      // 테이블 헤더
+      const headerRow = columns.map(column => `    <th>${column}</th>`).join('\n');
+      
+      // 테이블 바디
+      const bodyRows = projects.map(project =>
+        `    <tr>\n` + 
+        columns.map(column => {
+          const cellValue = project[column];
+          if (column === 'Repository' && cellValue) {
+            return `      <td><a href="${cellValue}">${cellValue}</a></td>`;
+          }
+          return `      <td>${cellValue || ''}</td>`;
+        }).join('\n') + 
+        '\n    </tr>'
+      ).join('\n');
+
+      // 전체 테이블 마크다운
+      const projectsTableMarkdown = projects.length > 0
+          ? `<table>\n  <tr>\n${headerRow}\n  </tr>\n${bodyRows}\n</table>`
+          : '';
+
+      // README 전체 내용 생성
+      const markdownSections = [
+          usernameMarkdown, 
+          mainSkillsMarkdown, 
+          availableSkillsMarkdown, 
+          nowStudyingMarkdown, 
+          projectsTitleMarkdown + projectsTableMarkdown
+      ].filter(Boolean).join("\n\n<br><br>\n\n");
+      
+      setGeneratedReadmeContent(markdownSections);
+      setShowGeneratedReadme(true);
+      setIsLoading(false);
     }, 1000);
   };
 
