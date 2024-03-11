@@ -72,24 +72,22 @@ const Projects = ({ projects, setProjects, columns, setColumns, projectsTitle, s
               ))}
             </tr>
           ))}
-          <tr className="add-project-row">
-            <td colSpan={columns.length} style={{textAlign: 'center'}}>
-              <button className="add-project-btn" onClick={addNewProject}>Add Project</button>
-            </td>
-          </tr>
         </tbody>
       </table>
+      <div className="add-project-container align-center">
+        <button className="add-project-btn" onClick={addNewProject}>Add Project</button>
+      </div>
     </div>
   );
 };
 
 Projects.propTypes = {
-    projects: PropTypes.arrayOf(PropTypes.object).isRequired,
-    setProjects: PropTypes.func.isRequired,
-    columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-    setColumns: PropTypes.func.isRequired,
-    projectsTitle: PropTypes.string.isRequired,
-    setProjectsTitle: PropTypes.func.isRequired,
+  projects: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setProjects: PropTypes.func.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setColumns: PropTypes.func.isRequired,
+  projectsTitle: PropTypes.string.isRequired,
+  setProjectsTitle: PropTypes.func.isRequired,
 };
 
 export default Projects;
