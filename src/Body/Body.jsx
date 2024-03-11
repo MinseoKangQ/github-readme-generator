@@ -16,7 +16,7 @@ export default function Body() {
   const [githubUsername, setGithubUsername] = useState('');
   const [iconsList, setIconsList] = useState([]);
   const [iconTheme, setIconTheme] = useState('dark');
-  const [projects, setProjects] = useState([]);
+  
   const [columns, setColumns] = useState(['Project Name', 'Repository', 'Role']);
   const [generatedReadmeContent, setGeneratedReadmeContent] = useState('');
   const [showGeneratedReadme, setShowGeneratedReadme] = useState(false);
@@ -27,6 +27,14 @@ export default function Body() {
   const [availableSkillsTitle, setAvailableSkillsTitle] = useState('💡 Available Skills');
   const [nowStudyingTitle, setNowStudyingTitle] = useState('📚 Now Studying');
   const [projectsTitle, setProjectsTitle] = useState('📁 Projects');
+
+  // projects 상태의 초기값에 하나의 빈 프로젝트 추가
+  const initialProject = columns.reduce((acc, column) => {
+    acc[column] = '';
+    return acc;
+  }, {});
+
+  const [projects, setProjects] = useState([initialProject]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -79,29 +87,27 @@ export default function Body() {
         ? `### ${nowStudyingTitle}\n\n[![Now Studying](https://skillicons.dev/icons?i=${selectedStudyingLanguages.join(",")}${themeQuery})](https://skillicons.dev)`
         : '';
 
-      // 프로젝트들 타이틀명
-      const projectsTitleMarkdown = projects.length > 0 ? `### ${projectsTitle}\n\n` : '';
+        const isInitialProjectState = projects.length === 1 && columns.every(column => projects[0][column] === '');
 
-      // 테이블 헤더
-      const headerRow = columns.map(column => `    <th>${column}</th>`).join('\n');
-      
-      // 테이블 바디
-      const bodyRows = projects.map(project =>
-        `    <tr>\n` + 
-        columns.map(column => {
-          const cellValue = project[column];
-          if (column === 'Repository' && cellValue) {
-            return `      <td><a href="${cellValue}">${cellValue}</a></td>`;
-          }
-          return `      <td>${cellValue || ''}</td>`;
-        }).join('\n') + 
-        '\n    </tr>'
-      ).join('\n');
+        const areAllProjectsEmpty = projects.every(project => 
+          columns.every(column => !project[column])
+        );
 
-      // 전체 테이블 마크다운
-      const projectsTableMarkdown = projects.length > 0
-          ? `<table>\n  <tr>\n${headerRow}\n  </tr>\n${bodyRows}\n</table>`
-          : '';
+        let projectsSectionMarkdown = '';
+        if (!isInitialProjectState && !areAllProjectsEmpty) {
+            const projectsTitleMarkdown = `### ${projectsTitle}\n\n`;
+            const headerRow = columns.map(column => `    <th>${column}</th>`).join('\n');
+            const bodyRows = projects.map(project =>
+                `    <tr>\n` + 
+                columns.map(column => {
+                    const cellValue = project[column];
+                    return `      <td>${cellValue || ''}</td>`;
+                }).join('\n') + 
+                '\n    </tr>'
+            ).join('\n');
+            const projectsTableMarkdown = `<table>\n  <tr>\n${headerRow}\n  </tr>\n${bodyRows}\n</table>`;
+            projectsSectionMarkdown = projectsTitleMarkdown + projectsTableMarkdown;
+        }
 
       // README 전체 내용 생성
       const markdownSections = [
@@ -109,7 +115,7 @@ export default function Body() {
           mainSkillsMarkdown, 
           availableSkillsMarkdown, 
           nowStudyingMarkdown, 
-          projectsTitleMarkdown + projectsTableMarkdown
+          projectsSectionMarkdown
       ].filter(Boolean).join("\n\n<br><br>\n\n");
       
       setGeneratedReadmeContent(markdownSections);
