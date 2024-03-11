@@ -1,3 +1,61 @@
+.projects-container {
+    font-family: Arial, sans-serif; /* GitHub은 기본적으로 Arial 또는 sans-serif 글꼴을 사용합니다. */
+}
+
+.projects-container input[type="text"]:not(.title-input) {
+    padding: 8px;
+    margin: 5px;
+    margin-left: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0; /* GitHub 표의 셀 간격 제거 */
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 8px 15px;
+    border: 1px solid #d0d7de; /* GitHub 표 테두리 색상 */
+    text-align: left;
+}
+
+/* td {
+    padding: 6px 13px;
+} */
+
+th {
+    background-color: #f6f8fa; /* GitHub 표 헤더 배경색 */
+    font-weight: 600; /* 헤더 글꼴 두께 */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f6f8fa; /* GitHub 스트라이프 효과 */
+}
+
+.add-project-row td {
+    background-color: transparent; /* 추가 프로젝트 행에 대한 배경색 제거 */
+}
+
+
+.projects-container input[type="text"]:not(.title-input), .new-column-input {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 6px 8px;
+    margin-bottom: 8px; /* GitHub 스타일에 맞게 조정 */
+    border: 1px solid #d0d7de; /* GitHub 입력란 테두리 색상 */
+    border-radius: 6px; /* GitHub 입력란 둥근 모서리 */
+    box-sizing: border-box;
+}
+
+.projects-container .title-input {
+    border-bottom: 1px solid #d0d7de; /* 제목 입력란 하단 테두리 */
+}
+
 .projects-btn {
     padding: 8px 16px;
     background-color: #007bff;
@@ -12,15 +70,21 @@
     background-color: #0056b3;
 }
 
-.projects-container input[type="text"]:not(.title-input) {
-    padding: 8px;
-    margin: 5px;
-    margin-left: 0px;
-    border: 1px solid #ccc;
+.add-project-btn {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 4px;
-    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+  
+.add-project-btn:hover {
+    background-color: #218838;
 }
 
+/* 
 .projects-container .title-input {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
@@ -53,19 +117,7 @@ table th, table td {
     height: 50px;
 }
   
-.add-project-btn {
-    padding: 8px 16px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-  
-.add-project-btn:hover {
-    background-color: #218838;
-}
+
   
 .column-controls {
     display: flex;
@@ -80,4 +132,4 @@ table th, table td {
 
 .add-project-row {
     background-color: #f0f0f0;
-}
+} */
