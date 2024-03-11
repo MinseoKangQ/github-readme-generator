@@ -2,7 +2,14 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Projects.css';
 
-const Projects = ({ projects, setProjects, columns, setColumns, projectsTitle, setProjectsTitle }) => {
+const Projects = ({
+  projects,
+  setProjects,
+  columns,
+  setColumns,
+  projectsTitle,
+  setProjectsTitle,
+}) => {
   const [newColumn, setNewColumn] = useState('');
 
   const handleAddColumn = () => {
@@ -48,7 +55,9 @@ const Projects = ({ projects, setProjects, columns, setColumns, projectsTitle, s
           onChange={(e) => setNewColumn(e.target.value)}
           className="new-column-input"
         />
-        <button className="projects-btn" onClick={handleAddColumn}>Add Column</button>
+        <button className="projects-btn" onClick={handleAddColumn}>
+          Add Column
+        </button>
       </div>
       <table>
         <thead>
@@ -66,7 +75,9 @@ const Projects = ({ projects, setProjects, columns, setColumns, projectsTitle, s
                   <input
                     type="text"
                     value={project[column] || ''}
-                    onChange={(e) => handleProjectChange(index, column, e.target.value)}
+                    onChange={(e) =>
+                      handleProjectChange(index, column, e.target.value)
+                    }
                   />
                 </td>
               ))}
@@ -75,7 +86,9 @@ const Projects = ({ projects, setProjects, columns, setColumns, projectsTitle, s
         </tbody>
       </table>
       <div className="add-project-container align-center">
-        <button className="add-project-btn" onClick={addNewProject}>Add Project</button>
+        <button className="add-project-btn" onClick={addNewProject}>
+          Add Project
+        </button>
       </div>
     </div>
   );

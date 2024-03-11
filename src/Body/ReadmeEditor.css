@@ -39,10 +39,10 @@
 
 /* 토글 버튼 전체적인 스타일 */
 .toggleBackground {
-  width: 70px; 
+  width: 70px;
   height: 28px;
-  border-radius: 9999px; 
-  padding: 4px; 
+  border-radius: 9999px;
+  padding: 4px;
   display: flex;
   align-items: center;
   transition: background-color 0.3s ease; /* 애니메이션 */
@@ -50,13 +50,13 @@
 
 /* 토글 버튼 - Dark 모드 */
 .bg-dark {
-  background-color: #231F20;
+  background-color: #231f20;
   justify-content: flex-end;
 }
 
 /* 토글 버튼 - Light 모드 */
 .bg-light {
-  background-color: #D2D3D5;
+  background-color: #d2d3d5;
   justify-content: flex-start;
 }
 
@@ -79,7 +79,8 @@
 }
 
 /* Code/Markdown */
-.codePreview, .markdownPreview {
+.codePreview,
+.markdownPreview {
   width: 100%;
   min-height: 300px;
   border: 1px solid #ccc;
@@ -98,4 +99,12 @@
   padding: 10px 30px;
   text-align: left;
   overflow-y: auto;
+}
+
+.markdownPreview table tr:nth-child(odd) {
+  background-color: white;
+}
+
+.markdownPreview table tr:nth-child(even) {
+  background-color: #f6f8fa;
 }
