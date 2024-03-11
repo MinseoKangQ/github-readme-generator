@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import ReadmeEditor from './ReadmeEditor';
+import GithubUserName from './GithubUserName';
+import Introduce from './Introduce';
 import MainSkills from './MainSkills';
 import AvailableSkills from './AvailableSkills';
 import NowStudying from './NowStudying';
-import Loading from './Loading';
-import GithubUserName from './GithubUserName';
 import Projects from './Projects';
+import Loading from './Loading';
 import './Body.css';
 import { fetchReadmeAndParseIcons } from '../API/apiService';
 
@@ -14,6 +15,7 @@ export default function Body() {
   const [selectedAvailableLanguages, setSelectedAvailableLanguages] = useState([]);
   const [selectedStudyingLanguages, setSelectedStudyingLanguages] = useState([]);
   const [githubUsername, setGithubUsername] = useState('');
+  const [userIntroduction, setUserIntroduction] = useState('');
   const [iconsList, setIconsList] = useState([]);
   const [iconTheme, setIconTheme] = useState('dark');
   
@@ -69,8 +71,11 @@ export default function Body() {
 
       // 깃허브 계정 이름
       const usernameMarkdown = githubUsername
-        ? `### Hi there, I'm ${githubUsername} 👋\n\n`
-        : '';
+      ? `### ✨ ${githubUsername}\n\n`
+      : '';
+
+      // 소개
+      const introductionMarkdown = userIntroduction ? `### 👋 About Me\n\n${userIntroduction}\n\n` : '';
 
       // 메인 스킬들
       const mainSkillsMarkdown = selectedLanguages.length
@@ -112,6 +117,7 @@ export default function Body() {
       // README 전체 내용 생성
       const markdownSections = [
           usernameMarkdown, 
+          introductionMarkdown,
           mainSkillsMarkdown, 
           availableSkillsMarkdown, 
           nowStudyingMarkdown, 
@@ -141,6 +147,7 @@ export default function Body() {
       {!showGeneratedReadme && (
         <>
           <GithubUserName setUsername={setGithubUsername} />
+          <Introduce setUserIntroduction={setUserIntroduction} />
           <MainSkills
             title={mainSkillsTitle}
             setTitle={setMainSkillsTitle}
