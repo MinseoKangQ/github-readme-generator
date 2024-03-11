@@ -89,8 +89,12 @@ export default function Body() {
 
         const isInitialProjectState = projects.length === 1 && columns.every(column => projects[0][column] === '');
 
+        const areAllProjectsEmpty = projects.every(project => 
+          columns.every(column => !project[column])
+        );
+
         let projectsSectionMarkdown = '';
-        if (!isInitialProjectState) {
+        if (!isInitialProjectState && !areAllProjectsEmpty) {
             const projectsTitleMarkdown = `### ${projectsTitle}\n\n`;
             const headerRow = columns.map(column => `    <th>${column}</th>`).join('\n');
             const bodyRows = projects.map(project =>
