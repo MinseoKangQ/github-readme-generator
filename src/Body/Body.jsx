@@ -16,7 +16,7 @@ export default function Body() {
   const [githubUsername, setGithubUsername] = useState('');
   const [iconsList, setIconsList] = useState([]);
   const [iconTheme, setIconTheme] = useState('dark');
-  const [projects, setProjects] = useState([]);
+  
   const [columns, setColumns] = useState(['Project Name', 'Repository', 'Role']);
   const [generatedReadmeContent, setGeneratedReadmeContent] = useState('');
   const [showGeneratedReadme, setShowGeneratedReadme] = useState(false);
@@ -27,6 +27,14 @@ export default function Body() {
   const [availableSkillsTitle, setAvailableSkillsTitle] = useState('💡 Available Skills');
   const [nowStudyingTitle, setNowStudyingTitle] = useState('📚 Now Studying');
   const [projectsTitle, setProjectsTitle] = useState('📁 Projects');
+
+  // projects 상태의 초기값에 하나의 빈 프로젝트를 추가
+  const initialProject = columns.reduce((acc, column) => {
+    acc[column] = ''; // 각 열에 대해 빈 문자열 할당
+    return acc;
+  }, {});
+
+  const [projects, setProjects] = useState([initialProject]);
 
   useEffect(() => {
     setIsLoading(true);
