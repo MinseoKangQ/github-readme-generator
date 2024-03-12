@@ -15,7 +15,7 @@ function GithubUserName({ setUsername }) {
 
   return (
     <div className="github-username-container">
-      <h2>What&apos;s your github username?</h2>
+      <h3>What&apos;s your github username?</h3>
       <input 
         type="text"
         value={localUsername}
