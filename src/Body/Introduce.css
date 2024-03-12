@@ -10,7 +10,8 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-    
+    font-family: 'Font Name', sans-serif;
+    font-size: 14px;
   }
 
 .introduce-container h3 {
