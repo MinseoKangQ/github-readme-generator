@@ -55,7 +55,7 @@ return (
     {previewMode ? (
       <div className="markdownPreview" dangerouslySetInnerHTML={{ __html: marked(content) }} />
     ) : (
-      <textarea className="codePreview" value={content} onChange={onContentChange} />
+      <textarea className="codePreview" value={content} onChange={(e) => onContentChange(e.target.value)} />
     )}
   </div>
 );
