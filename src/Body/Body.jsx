@@ -142,8 +142,8 @@ export default function Body() {
     <div className="body">
       {!showGeneratedReadme && (
         <>
-          <GithubUserName setUsername={setGithubUsername} />
-          <Introduce setUserIntroduction={setUserIntroduction} />
+          <GithubUserName setUsername={setGithubUsername} initialUsername={githubUsername} />
+          <Introduce setUserIntroduction={setUserIntroduction} initialIntroduction={userIntroduction} />
           <MainSkills
             title={mainSkillsTitle}
             setTitle={setMainSkillsTitle}
