@@ -37,6 +37,7 @@
 }
 
 .add-project-btn {
+    margin: 10px;
     margin-top: 30px;
     padding: 8px 16px;
     background-color: #007bff;
@@ -90,4 +91,31 @@ table tr:nth-child(odd) {
 
 table tr:nth-child(even) {
     background-color: white;
+}
+
+.delete-project-btn {
+    margin: 10px;
+    margin-top: 30px;
+    padding: 8px 16px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.delete-project-btn:hover {
+    background-color: darkred;
+}
+
+.projects-container .projects-table td input[type="checkbox"] {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+/* Alternatively, if you want to specifically target only the "Delete" column for any future adjustments */
+.projects-container .projects-table td:last-child {
+    text-align: center;
 }

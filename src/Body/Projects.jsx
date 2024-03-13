@@ -11,6 +11,7 @@ const Projects = ({
   setProjectsTitle,
 }) => {
   const [newColumn, setNewColumn] = useState('');
+  const [selectedForDeletion, setSelectedForDeletion] = useState(new Set());
 
   const handleAddColumn = () => {
     if (newColumn && !columns.includes(newColumn)) {
@@ -38,6 +39,22 @@ const Projects = ({
     setProjects([...projects, newProject]);
   };
 
+  const handleSelectForDeletion = (index) => {
+    const newSet = new Set(selectedForDeletion);
+    if (newSet.has(index)) {
+      newSet.delete(index);
+    } else {
+      newSet.add(index);
+    }
+    setSelectedForDeletion(newSet);
+  };
+
+  const deleteSelectedProjects = () => {
+    const remainingProjects = projects.filter((_, index) => !selectedForDeletion.has(index));
+    setProjects(remainingProjects);
+    setSelectedForDeletion(new Set()); // Reset selection
+  };
+
   return (
     <div className="projects-container">
       <input
@@ -59,12 +76,13 @@ const Projects = ({
           Add Column
         </button>
       </div>
-      <table>
+      <table className="projects-table">
         <thead>
           <tr>
             {columns.map((column, index) => (
               <th key={index}>{column}</th>
             ))}
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -81,6 +99,13 @@ const Projects = ({
                   />
                 </td>
               ))}
+              <td>
+                <input
+                  type="checkbox"
+                  checked={selectedForDeletion.has(index)}
+                  onChange={() => handleSelectForDeletion(index)}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -88,6 +113,12 @@ const Projects = ({
       <div className="add-project-container align-center">
         <button className="add-project-btn" onClick={addNewProject}>
           Add Project
+        </button>
+        <button
+          className="delete-project-btn"
+          onClick={deleteSelectedProjects}
+        >
+          Delete
         </button>
       </div>
     </div>
