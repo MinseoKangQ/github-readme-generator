@@ -1,0 +1,19 @@
+.introduce-container {
+    margin: 20px 0;
+    text-align: left;
+  }
+  
+  .introduction-input {
+    width: 80%;
+    height: 100px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: 'Font Name', sans-serif;
+    font-size: 14px;
+  }
+
+.introduce-container h3 {
+    margin: 50px 0px 20px 0px;
+}
