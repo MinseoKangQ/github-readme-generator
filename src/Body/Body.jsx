@@ -53,14 +53,10 @@ export default function Body() {
   }, []);
 
   const updateTheme = (newTheme) => {
-    if (typeof newTheme !== 'string') {
-      console.error("newTheme is not a string:", newTheme);
-      return;
-    }
+    const regex = /(&theme=)(dark|light)/g;
+    const updatedContent = generatedReadmeContent.replace(regex, `$1${newTheme}`);
+    setGeneratedReadmeContent(updatedContent);
     setIconTheme(newTheme);
-    if (showGeneratedReadme) {
-      generateReadme(newTheme, false);
-    }
   };
 
   // 선택된 언어들로 README를 생성하는 함수
@@ -178,7 +174,7 @@ export default function Body() {
             setProjectsTitle={setProjectsTitle}
           />
           <div className="generateButton">
-            <button className="generate-readme-btn" onClick={() => generateReadme(iconTheme)}>Generate README</button>
+            <button className="generate-readme-btn" onClick={() => generateReadme(iconTheme)}>Generate</button>
           </div>
         </>
       )}
