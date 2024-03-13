@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './GithubUserName.css';
 
-function GithubUserName({ setUsername }) {
+function GithubUserName({ setUsername, initialUsername }) {
   const [localUsername, setLocalUsername] = useState('');
+
+  useEffect(() => {
+    setLocalUsername(initialUsername);
+  }, [initialUsername]);
 
   const handleChange = (e) => {
     setLocalUsername(e.target.value);
@@ -29,7 +33,8 @@ function GithubUserName({ setUsername }) {
 }
 
 GithubUserName.propTypes = {
-    setUsername: PropTypes.func.isRequired, // Validate setUsername as a required function
+    setUsername: PropTypes.func.isRequired,
+    initialUsername: PropTypes.string,
   };
   
   export default GithubUserName;

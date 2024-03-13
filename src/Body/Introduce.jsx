@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Introduce.css';
 
-function Introduce({ setUserIntroduction }) {
-    const [introduction, setIntroduction] = useState('');
+function Introduce({ setUserIntroduction, initialIntroduction }) {
+  const [introduction, setIntroduction] = useState('');
 
+  useEffect(() => {
+    setIntroduction(initialIntroduction);
+  }, [initialIntroduction]);
+  
   const handleChange = (e) => {
     setIntroduction(e.target.value);
   };
@@ -29,6 +33,7 @@ function Introduce({ setUserIntroduction }) {
 
 Introduce.propTypes = {
   setUserIntroduction: PropTypes.func.isRequired,
+  initialIntroduction: PropTypes.string,
 };
 
 export default Introduce;
