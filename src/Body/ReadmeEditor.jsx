@@ -22,22 +22,6 @@ function ReadmeEditor({ content, onContentChange, iconTheme, updateTheme }) {
 
 return (
   <div className="editorContainer">
-    {/* <div className="toolbar">
-      <div className="buttonGroup1">
-        <button onClick={() => setPreviewMode(false)} className={!previewMode ? 'selected' : ''}>Code</button>
-        <button onClick={() => setPreviewMode(true)} className={previewMode ? 'selected' : ''}>Preview</button>
-      </div>
-      <div className="rightControls">
-        <div className="copyButton" onClick={copyMarkdown}>
-          <img src={copy} alt="Copy" />
-        </div>
-        <div className="toggleGroup" onClick={toggleTheme}>
-          <div className={`toggleBackground ${iconTheme === 'dark' ? 'bg-dark' : 'bg-light'}`}>
-            <div className={`toggleButton ${iconTheme === 'dark' ? 'toggle-dark' : 'toggle-light'}`}></div>
-          </div>
-        </div>
-      </div>
-    </div> */}
     <div className="toolbar">
       <div className="buttonGroup1">
         <button onClick={() => setPreviewMode(false)} className={!previewMode ? 'selected' : ''}>Code</button>
