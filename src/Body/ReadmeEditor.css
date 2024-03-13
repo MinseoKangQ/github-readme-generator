@@ -14,6 +14,7 @@
 /* Code, Preview 버튼 */
 .buttonGroup1 {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
 }
 
@@ -96,7 +97,7 @@
 }
 
 .markdownPreview {
-  padding: 10px 30px;
+  padding: 10px 30px 50px 30px;
   text-align: left;
   overflow-y: auto;
 }
@@ -107,4 +108,18 @@
 
 .markdownPreview table tr:nth-child(even) {
   background-color: #f6f8fa;
+}
+
+.rightControls {
+  display: flex;
+  align-items: center;
+}
+
+.copyButton {
+  cursor: pointer;
+}
+
+.copyButton img {
+  width: 30px;
+  height: 30px;
 }
