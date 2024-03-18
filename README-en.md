@@ -43,7 +43,7 @@ Always welcome. Please fill out the form.
 
 #### 🛠️ Tech Stack
 
-[![Dev Skills](https://skillicons.dev/icons?i=vite,react,github&theme=dark)](https://skillicons.dev)
+[![Dev Skills](https://skillicons.dev/icons?i=vite,react,css,js,github&theme=dark)](https://skillicons.dev)
 
 <br><br>
 
